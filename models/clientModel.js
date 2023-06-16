@@ -13,6 +13,10 @@ const clientSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  telContacto: {
+    type: Number,
+    required: true,
+  },
   vendedor: {
     type: String,
     required: true,
