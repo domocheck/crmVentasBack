@@ -4,8 +4,9 @@ export const createClient = async (req, res) => {
   try {
     const { nombreLocal, nombreCrm, vendedor } = req.body;
     const cliente = await Client.create({
-      nombreLocal,
       nombreCrm,
+      nombreLocal,
+      telContacto,
       vendedor,
     });
     res
