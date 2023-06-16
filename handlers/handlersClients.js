@@ -29,3 +29,13 @@ export const getClients = async (req, res) => {
     res.status(404).json({ error: error });
   }
 };
+
+export const getClient = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const client = await Client.findById(id);
+    res.status(200).json({ message: "cliente obtenido", data: client });
+  } catch (error) {
+    res.status(404).json({ error: error });
+  }
+};
