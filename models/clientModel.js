@@ -26,9 +26,10 @@ const clientSchema = new mongoose.Schema({
     default: new Date(),
   },
   fechaModificacion: Date,
-  fechaContacto: {
-    type: Date,
-  },
+  fechaContacto: Date,
+  fechaDespachado: Date,
+  fechaIntegrado: Date,
+
   menu: {
     fecha: {
       type: Date,
@@ -65,27 +66,9 @@ const clientSchema = new mongoose.Schema({
       default: "Pendiente",
     },
   },
-  despachado: {
-    estado: {
-      type: String,
-      default: "Pendiente",
-    },
-    fecha: {
-      type: Date,
-    },
-  },
   testeo: {
     type: String,
     default: "No",
-  },
-  integrado: {
-    estado: {
-      type: String,
-      default: "Pendiente",
-    },
-    fecha: {
-      type: Date,
-    },
   },
   link: {
     type: String,
