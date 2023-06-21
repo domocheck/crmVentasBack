@@ -68,6 +68,7 @@ const clientSchema = new mongoose.Schema({
   despachado: {
     estado: {
       type: String,
+      default: "Pendiente",
     },
     fecha: {
       type: Date,
@@ -75,15 +76,24 @@ const clientSchema = new mongoose.Schema({
   },
   testeo: {
     type: String,
+    default: "No",
   },
-  finalizado: {
-    type: String,
+  integrado: {
+    estado: {
+      type: String,
+      default: "Pendiente",
+    },
+    fecha: {
+      type: Date,
+    },
   },
   link: {
     type: String,
+    default: "No",
   },
   portal: {
     type: String,
+    default: "No",
   },
 });
 
