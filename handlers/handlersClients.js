@@ -55,7 +55,7 @@ export const updateClient = async (req, res) => {
         if (estado === "Despachado" || estado === "Integrado") {
           const update = await Client.findByIdAndUpdate(id, {
             estado,
-            [`${estado}Fecha`]: new Date(),
+            [`fecha${estado}`]: new Date(),
             fechaModificacion: new Date(),
           });
         } else {
