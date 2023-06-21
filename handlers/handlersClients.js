@@ -49,7 +49,10 @@ export const updateClient = async (req, res) => {
       const complete = await Client.findByIdAndUpdate(id, updateObj);
       res.status(200).json({ message: "complete" });
     } else {
-      const update = await Client.findByIdAndUpdate(id, { estado });
+      const update = await Client.findByIdAndUpdate(id, {
+        estado,
+        fechaContacto: new Date(),
+      });
       res.status(200).json({ message: "todo actualizado con exito" });
     }
   } catch (error) {
