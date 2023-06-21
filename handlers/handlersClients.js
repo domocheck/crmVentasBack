@@ -39,3 +39,20 @@ export const getClient = async (req, res) => {
     res.status(404).json({ error: error });
   }
 };
+
+export const updateClient = async (req, res) => {
+  const { id, datoClient, estado } = req.body;
+  let updateObj = {};
+  try {
+    if (datoClient) {
+      updateObj[`${datoClient}.estado`] = `${datoClient} OK`;
+      const complete = await Client.findByIdAndUpdate(id, updateObj);
+      res.status(200).json({ message: "complete" });
+    } else {
+      const update = await Client.findByIdAndUpdate(id, { estado });
+      res.status(200).json({ message: "todo actualizado con exito" });
+    }
+  } catch (error) {
+    res.status(404).json({ error: error });
+  }
+};
