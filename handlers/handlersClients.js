@@ -49,10 +49,20 @@ export const updateClient = async (req, res) => {
       const complete = await Client.findByIdAndUpdate(id, updateObj);
       res.status(200).json({ message: "complete" });
     } else {
-      const update = await Client.findByIdAndUpdate(id, {
-        estado,
-        fechaContacto: new Date(),
-      });
+      const client = await Client.findById(id);
+      if (client.fechaContacto) {
+        // La propiedad fechaContacto existe en el cliente, actualizar fechaModificacion
+        const update = await Client.findByIdAndUpdate(id, {
+          estado,
+          fechaModificacion: new Date(),
+        });
+      } else {
+        // La propiedad fechaContacto no existe en el cliente, agregar fechaContacto
+        const update = await Client.findByIdAndUpdate(id, {
+          estado,
+          fechaContacto: new Date(),
+        });
+      }
       res.status(200).json({ message: "todo actualizado con exito" });
     }
   } catch (error) {
