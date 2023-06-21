@@ -53,10 +53,10 @@ export const updateClient = async (req, res) => {
       if (client.fechaContacto) {
         // La propiedad fechaContacto existe en el cliente, actualizar fechaModificacion
         if (estado === "Despachado" || estado === "Integrado") {
-          let fechaEstado = `fecha${estado}`;
           const update = await Client.findByIdAndUpdate(id, {
             estado,
-            fechaEstado: new Date(),
+            [`${estado}Fecha`]: new Date(),
+            fechaModificacion: new Date(),
           });
         } else {
           const update = await Client.findByIdAndUpdate(id, {
