@@ -78,7 +78,7 @@ const clientSchema = new mongoose.Schema({
     type: String,
     default: "No",
   },
-  observacioones: Array,
+  observaciones: Array,
 });
 
 const Client = mongoose.model("Client", clientSchema);
