@@ -42,13 +42,18 @@ export const getClient = async (req, res) => {
 };
 
 export const updateClient = async (req, res) => {
-  const { id, datoClient, estado, estadoClient } = req.body;
+  const { id, datoClient, estado, estadoClient, obs } = req.body;
   let updateObj = {};
   try {
     if (datoClient) {
       updateObj[`${datoClient}.estado`] = estadoClient;
       updateObj[`${datoClient}.fecha`] = new Date();
       const complete = await Client.findByIdAndUpdate(id, updateObj);
+      res.status(200).json({ message: "complete" });
+    } else if (obs) {
+      const update = await Client.findByIdAndUpdate(id, {
+        $push: { observaciones: obs },
+      });
       res.status(200).json({ message: "complete" });
     } else {
       const client = await Client.findById(id);
