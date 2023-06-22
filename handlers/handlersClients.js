@@ -9,6 +9,7 @@ export const createClient = async (req, res) => {
       telContacto,
       vendedor,
       observaciones,
+      antiguedad,
     } = req.body;
     const cliente = await Client.create({
       fechaSolicitud,
@@ -17,6 +18,7 @@ export const createClient = async (req, res) => {
       telContacto,
       vendedor,
       observaciones,
+      antiguedad,
     });
     res
       .status(200)

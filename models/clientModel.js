@@ -21,6 +21,7 @@ const clientSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  antiguedad: String,
   fechaSolicitud: {
     type: Date,
     default: new Date(),
