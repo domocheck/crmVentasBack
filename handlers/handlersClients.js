@@ -10,6 +10,7 @@ export const createClient = async (req, res) => {
       nombreLocal,
       telContacto,
       vendedor,
+      observaciones,
     });
     res
       .status(200)
