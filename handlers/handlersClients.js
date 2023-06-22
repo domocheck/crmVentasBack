@@ -2,8 +2,14 @@ import Client from "../models/clientModel.js";
 
 export const createClient = async (req, res) => {
   try {
-    const { fechaSolicitud, nombreCrm, nombreLocal, telContacto, vendedor } =
-      req.body;
+    const {
+      fechaSolicitud,
+      nombreCrm,
+      nombreLocal,
+      telContacto,
+      vendedor,
+      observaciones,
+    } = req.body;
     const cliente = await Client.create({
       fechaSolicitud,
       nombreCrm,
