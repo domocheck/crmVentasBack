@@ -11,16 +11,15 @@ export const createClient = async (req, res) => {
       observaciones,
       antiguedad,
     } = req.body;
-    const actividades = [
-      {
-        _id: new mongoose.Types.ObjectId(),
-        actividad: "Pendiente de contactar",
-        fecha: new Date(),
-        proximoContacto: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
-        dato: "Contactar",
-        estado: "Pendiente",
-      },
-    ];
+    const newAct = {
+      _id: new mongoose.Types.ObjectId(),
+      actividad: "Pendiente de contactar",
+      fecha: new Date(),
+      proximoContacto: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
+      dato: "Contactar",
+      estado: "Pendiente",
+    };
+
     const cliente = await Client.create({
       fechaSolicitud,
       nombreCrm,
@@ -29,7 +28,7 @@ export const createClient = async (req, res) => {
       vendedor,
       observaciones,
       antiguedad,
-      actividades,
+      actividades: [newAct],
     });
     res
       .status(200)
