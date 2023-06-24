@@ -28,7 +28,7 @@ export const createClient = async (req, res) => {
       vendedor,
       observaciones,
       antiguedad,
-      actividades: [newAct],
+      actividades: newAct,
     });
     res
       .status(200)
