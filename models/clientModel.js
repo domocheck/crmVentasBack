@@ -5,7 +5,7 @@ const clientSchema = new mongoose.Schema({
     type: Array,
     default: [
       {
-        _id: mongoose.Types.ObjectId(),
+        _id: new mongoose.Types.ObjectId(),
         actividad: "Pendiente de contactar",
         fecha: new Date(),
         proximoContacto: new Date(
