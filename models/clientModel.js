@@ -1,11 +1,12 @@
 import mongoose from "mongoose";
+import { v4 as uuidv4 } from "uuid";
 
 const clientSchema = new mongoose.Schema({
   actividades: {
     type: Array,
     default: [
       {
-        _id: new mongoose.Types.ObjectId(),
+        _id: uuidv4(),
         actividad: "Pendiente de contactar",
         fecha: new Date(),
         proximoContacto: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
