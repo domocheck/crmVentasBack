@@ -92,3 +92,52 @@ export const updateClient = async (req, res) => {
     res.status(404).json({ error: error });
   }
 };
+
+const updateAct = async (req, res) => {
+  try {
+    const { proximoContacto, obs, idAct, id } = req.body;
+
+    // Buscar el cliente por su id
+    const cliente = await Client.findById(id);
+
+    if (!cliente) {
+      return res.status(404).json({ message: "Cliente no encontrado" });
+    }
+
+    // Crear la nueva actividad
+    const nuevaActividad = {
+      _id: new mongoose.Types.ObjectId(),
+      actividad: obs,
+      fecha: new Date(),
+      proximoContacto: proximoContacto,
+      estado: "Pendiente",
+    };
+
+    // Agregar la nueva actividad al array de actividades del cliente
+    cliente.actividades.push(nuevaActividad);
+
+    // Guardar los cambios en el cliente
+    await cliente.save();
+
+    // Buscar la actividad por su idAct en el array de actividades del cliente
+    const actividad = cliente.actividades.find(
+      (act) => act._id.toString() === idAct
+    );
+
+    if (!actividad) {
+      return res.status(404).json({ message: "Actividad no encontrada" });
+    }
+
+    // Actualizar el estado de la actividad a "cumplida"
+    actividad.estado = "Cumplida";
+
+    // Guardar los cambios en el cliente nuevamente
+    await cliente.save();
+
+    res.status(200).json({ message: "Actividad actualizada con éxito" });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error al actualizar la actividad", error });
+  }
+};
