@@ -113,11 +113,9 @@ export const updateAct = async (req, res) => {
       estado: "Pendiente",
     };
 
-    // Agregar la nueva actividad al array de actividades del cliente
-    cliente.actividades.push(nuevaActividad);
-
-    // Guardar los cambios en el cliente
-    await cliente.save();
+    await Client.findByIdAndUpdate(id, {
+      $push: { actividades: nuevaActividad },
+    });
 
     // Buscar la actividad por su idAct en el array de actividades del cliente
     const actividad = cliente.actividades.find(
