@@ -13,7 +13,7 @@ router
   .post("/", createClient)
   .get("/", getClients)
   .get("/:id", getClient)
-  .put("/", updateClient)
-  .put("/actividades", updateAct);
+  .put("/actividades", updateAct)
+  .put("/", updateClient);
 
 export { router as clientesRoutes };
