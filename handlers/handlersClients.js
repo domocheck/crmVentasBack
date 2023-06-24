@@ -120,23 +120,18 @@ export const createAct = async (req, res) => {
     const { id, actividad, proximoContacto } = req.body;
 
     // Buscar el cliente por su id y agregar la nueva actividad
-    const cliente = await Client.findByIdAndUpdate(id, {
-      $push: {
-        actividades: {
-          _id: new mongoose.Types.ObjectId(),
-          actividad: actividad,
-          fecha: new Date(),
-          proximoContacto: proximoContacto,
-          estado: "Pendiente",
-        },
-      },
+    const newAct = {
+      _id: new mongoose.Types.ObjectId(),
+      actividad: actividad,
+      fecha: new Date(),
+      proximoContacto: proximoContacto,
+      estado: "Pendiente",
+    };
+
+    const update = await Client.findByIdAndUpdate(id, {
+      $push: { actividades: newAct },
     });
-
-    if (!cliente) {
-      return res.status(404).json({ message: "Cliente no encontrado" });
-    }
-
-    res.status(200).json({ message: "Nueva actividad creada con éxito" });
+    res.status(200).json({ message: "complete" });
   } catch (error) {
     res.status(500).json({ message: "Error al crear la actividad", error });
   }
