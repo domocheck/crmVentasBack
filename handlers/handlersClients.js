@@ -117,17 +117,7 @@ export const updateActividad = async (req, res) => {
 
 export const createAct = async (req, res) => {
   try {
-    const { id, actividad, proximoContacto, dato } = req.body;
-
-    // Buscar el cliente por su id y agregar la nueva actividad
-    const newAct = {
-      _id: new mongoose.Types.ObjectId(),
-      actividad: actividad,
-      fecha: new Date(),
-      proximoContacto: proximoContacto,
-      dato,
-      estado: "Pendiente",
-    };
+    const { id, newAct } = req.body;
 
     const update = await Client.findByIdAndUpdate(id, {
       $push: { actividades: newAct },
