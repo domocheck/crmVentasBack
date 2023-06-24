@@ -1,9 +1,6 @@
 import mongoose from "mongoose";
 
 const clientSchema = new mongoose.Schema({
-  actividades: {
-    type: Array,
-  },
   estado: {
     type: String,
     default: "Pendiente",
