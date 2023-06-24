@@ -117,7 +117,7 @@ export const updateActividad = async (req, res) => {
 
 export const createAct = async (req, res) => {
   try {
-    const { id, actividad, proximoContacto } = req.body;
+    const { id, actividad, proximoContacto, dato } = req.body;
 
     // Buscar el cliente por su id y agregar la nueva actividad
     const newAct = {
@@ -125,6 +125,7 @@ export const createAct = async (req, res) => {
       actividad: actividad,
       fecha: new Date(),
       proximoContacto: proximoContacto,
+      dato,
       estado: "Pendiente",
     };
 
