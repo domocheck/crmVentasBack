@@ -93,9 +93,43 @@ export const updateClient = async (req, res) => {
   }
 };
 
-export const updateAct = async (req, res) => {
+export const updateActividad = async (req, res) => {
   try {
-    const { proximoContacto, obs, idAct, id } = req.body;
+    const { id, actividadId } = req.body;
+
+    // Buscar el cliente por su id
+    const cliente = await Client.findById(id);
+
+    if (!cliente) {
+      return res.status(404).json({ message: "Cliente no encontrado" });
+    }
+
+    // Buscar la actividad por su id en el array de actividades del cliente
+    const actividad = cliente.actividades.find(
+      (act) => act._id.toString() === actividadId
+    );
+
+    if (!actividad) {
+      return res.status(404).json({ message: "Actividad no encontrada" });
+    }
+
+    // Actualizar el estado de la actividad
+    actividad.estado = "Cumplida";
+
+    // Guardar los cambios en el cliente
+    await cliente.save();
+
+    res.status(200).json({ message: "Actividad actualizada con éxito" });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error al actualizar la actividad", error });
+  }
+};
+
+export const createAct = async (req, res) => {
+  try {
+    const { id, actividad, proximoContacto } = req.body;
 
     // Buscar el cliente por su id
     const cliente = await Client.findById(id);
@@ -107,35 +141,20 @@ export const updateAct = async (req, res) => {
     // Crear la nueva actividad
     const nuevaActividad = {
       _id: new mongoose.Types.ObjectId(),
-      actividad: obs,
+      actividad: actividad,
       fecha: new Date(),
       proximoContacto: proximoContacto,
       estado: "Pendiente",
     };
 
-    await Client.findByIdAndUpdate(id, {
-      $push: { actividades: nuevaActividad },
-    });
+    // Agregar la nueva actividad al array de actividades del cliente
+    cliente.actividades.push(nuevaActividad);
 
-    // Buscar la actividad por su idAct en el array de actividades del cliente
-    const actividad = cliente.actividades.find(
-      (act) => act._id.toString() === idAct
-    );
-
-    if (!actividad) {
-      return res.status(404).json({ message: "Actividad no encontrada" });
-    }
-
-    // Actualizar el estado de la actividad a "cumplida"
-    actividad.estado = "Cumplida";
-
-    // Guardar los cambios en el cliente nuevamente
+    // Guardar los cambios en el cliente
     await cliente.save();
 
-    res.status(200).json({ message: "Actividad actualizada con éxito" });
+    res.status(200).json({ message: "Nueva actividad creada con éxito" });
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Error al actualizar la actividad", error });
+    res.status(500).json({ message: "Error al crear la actividad", error });
   }
 };
