@@ -95,29 +95,17 @@ export const updateClient = async (req, res) => {
 
 export const updateActividad = async (req, res) => {
   try {
-    const { id, actividadId } = req.body;
+    const { id, actividadId, estado } = req.body;
 
-    // Buscar el cliente por su id
-    const cliente = await Client.findById(id);
+    // Buscar el cliente por su id y actualizar la actividad
+    const cliente = await Client.findOneAndUpdate(
+      { _id: id, "actividades._id": actividadId },
+      { $set: { "actividades.$.estado": estado } }
+    );
 
     if (!cliente) {
       return res.status(404).json({ message: "Cliente no encontrado" });
     }
-
-    // Buscar la actividad por su id en el array de actividades del cliente
-    const actividad = cliente.actividades.find(
-      (act) => act._id.toString() === actividadId
-    );
-
-    if (!actividad) {
-      return res.status(404).json({ message: "Actividad no encontrada" });
-    }
-
-    // Actualizar el estado de la actividad
-    actividad.estado = "Cumplida";
-
-    // Guardar los cambios en el cliente
-    await cliente.save();
 
     res.status(200).json({ message: "Actividad actualizada con éxito" });
   } catch (error) {
@@ -131,27 +119,22 @@ export const createAct = async (req, res) => {
   try {
     const { id, actividad, proximoContacto } = req.body;
 
-    // Buscar el cliente por su id
-    const cliente = await Client.findById(id);
+    // Buscar el cliente por su id y agregar la nueva actividad
+    const cliente = await Client.findByIdAndUpdate(id, {
+      $push: {
+        actividades: {
+          _id: new mongoose.Types.ObjectId(),
+          actividad: actividad,
+          fecha: new Date(),
+          proximoContacto: proximoContacto,
+          estado: "Pendiente",
+        },
+      },
+    });
 
     if (!cliente) {
       return res.status(404).json({ message: "Cliente no encontrado" });
     }
-
-    // Crear la nueva actividad
-    const nuevaActividad = {
-      _id: new mongoose.Types.ObjectId(),
-      actividad: actividad,
-      fecha: new Date(),
-      proximoContacto: proximoContacto,
-      estado: "Pendiente",
-    };
-
-    // Agregar la nueva actividad al array de actividades del cliente
-    cliente.actividades.push(nuevaActividad);
-
-    // Guardar los cambios en el cliente
-    await cliente.save();
 
     res.status(200).json({ message: "Nueva actividad creada con éxito" });
   } catch (error) {
