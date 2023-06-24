@@ -59,35 +59,36 @@ export const updateClient = async (req, res) => {
       updateObj[`${datoClient}.fecha`] = new Date();
       const complete = await Client.findByIdAndUpdate(id, updateObj);
       res.status(200).json({ message: "complete" });
-    } else if (obs) {
+    }
+    if (obs) {
       const update = await Client.findByIdAndUpdate(id, {
         $push: { observaciones: obs },
       });
       res.status(200).json({ message: "complete" });
-    } else {
-      const client = await Client.findById(id);
-      if (client.fechaContacto) {
-        if (estado === "Despachado" || estado === "Integrado") {
-          const update = await Client.findByIdAndUpdate(id, {
-            estado,
-            ["fecha" + estado]: new Date(),
-            fechaModificacion: new Date(),
-          });
-        } else {
-          const update = await Client.findByIdAndUpdate(id, {
-            estado,
-            fechaModificacion: new Date(),
-          });
-        }
-      } else {
-        // La propiedad fechaContacto no existe en el cliente, agregar fechaContacto
+    }
+
+    const client = await Client.findById(id);
+    if (client.fechaContacto) {
+      if (estado === "Despachado" || estado === "Integrado") {
         const update = await Client.findByIdAndUpdate(id, {
           estado,
-          fechaContacto: new Date(),
+          ["fecha" + estado]: new Date(),
+          fechaModificacion: new Date(),
+        });
+      } else {
+        const update = await Client.findByIdAndUpdate(id, {
+          estado,
+          fechaModificacion: new Date(),
         });
       }
-      res.status(200).json({ message: "todo actualizado con exito" });
+    } else {
+      // La propiedad fechaContacto no existe en el cliente, agregar fechaContacto
+      const update = await Client.findByIdAndUpdate(id, {
+        estado,
+        fechaContacto: new Date(),
+      });
     }
+    res.status(200).json({ message: "todo actualizado con exito" });
   } catch (error) {
     res.status(404).json({ error: error });
   }
