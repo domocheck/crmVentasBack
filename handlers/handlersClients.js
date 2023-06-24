@@ -93,7 +93,7 @@ export const updateClient = async (req, res) => {
   }
 };
 
-const updateAct = async (req, res) => {
+export const updateAct = async (req, res) => {
   try {
     const { proximoContacto, obs, idAct, id } = req.body;
 
