@@ -98,8 +98,8 @@ export const updateActividad = async (req, res) => {
     const { id, actividadId, estado } = req.body;
 
     // Buscar el cliente por su id y actualizar la actividad
-    const cliente = await Client.findOneAndUpdate(
-      { _id: id, "actividades._id": actividadId },
+    const cliente = await Client.updateOne(
+      { id, "actividades._id": actividadId },
       { $set: { "actividades.$.estado": estado } }
     );
 
