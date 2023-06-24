@@ -1,6 +1,21 @@
 import mongoose from "mongoose";
 
 const clientSchema = new mongoose.Schema({
+  actividades: {
+    type: Array,
+    default: [
+      {
+        _id: mongoose.Types.ObjectId(),
+        actividad: "Pendiente de contactar",
+        fecha: new Date(),
+        proximoContacto: new Date(
+          new Date().getTime() + 2 * 24 * 60 * 60 * 1000
+        ),
+        dato: "Contactar",
+        estado: "Pendiente",
+      },
+    ],
+  },
   estado: {
     type: String,
     default: "Pendiente",
