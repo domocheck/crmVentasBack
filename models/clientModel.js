@@ -1,6 +1,19 @@
 import mongoose from "mongoose";
 
 const clientSchema = new mongoose.Schema({
+  actividades: {
+    type: Array,
+    default: [
+      {
+        _id: new mongoose.Types.ObjectId(),
+        actividad: "Pendiente de contactar",
+        fecha: new Date(),
+        proximoContacto: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
+        dato: "Contactar",
+        estado: "Pendiente",
+      },
+    ],
+  },
   estado: {
     type: String,
     default: "Pendiente",
@@ -82,6 +95,6 @@ const clientSchema = new mongoose.Schema({
   observaciones: Array,
 });
 
-const Client = mongoose.model("Client", clientSchema);
+const Client = mongoose.model("checkDelivery", clientSchema);
 
 export default Client;
