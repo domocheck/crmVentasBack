@@ -11,7 +11,7 @@ const clientSchema = new mongoose.Schema({
         fecha: new Date(),
         proximoContacto: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
         dato: "Contactar",
-        estado: "Pendiente",
+        estadoAct: "Pendiente",
       },
     ],
   },
