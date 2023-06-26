@@ -49,6 +49,9 @@ const clientSchema = new mongoose.Schema({
     fechaSolicitado: {
       type: Date,
     },
+    fechaPendiente: {
+      type: Date,
+    },
     fechaEntregado: {
       type: Date,
     },
@@ -59,6 +62,9 @@ const clientSchema = new mongoose.Schema({
   },
   datos: {
     fechaSolicitado: {
+      type: Date,
+    },
+    fechaPendiente: {
       type: Date,
     },
     fechaEntregado: {
@@ -73,6 +79,9 @@ const clientSchema = new mongoose.Schema({
     fechaSolicitado: {
       type: Date,
     },
+    fechaPendiente: {
+      type: Date,
+    },
     fechaEntregado: {
       type: Date,
     },
@@ -85,6 +94,9 @@ const clientSchema = new mongoose.Schema({
     fechaSolicitado: {
       type: Date,
     },
+    fechaPendiente: {
+      type: Date,
+    },
     fechaEntregado: {
       type: Date,
     },
@@ -95,6 +107,9 @@ const clientSchema = new mongoose.Schema({
   },
   mapa: {
     fechaSolicitado: {
+      type: Date,
+    },
+    fechaPendiente: {
       type: Date,
     },
     fechaEntregado: {
