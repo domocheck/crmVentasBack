@@ -8,6 +8,7 @@ const clientSchema = new mongoose.Schema({
       {
         _id: uuidv4(),
         actividad: "Pendiente de contactar",
+        obsAnterior: "",
         fecha: new Date(),
         proximoContacto: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
         dato: "Contactar",
