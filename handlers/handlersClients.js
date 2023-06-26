@@ -56,7 +56,7 @@ export const updateClient = async (req, res) => {
   try {
     if (datoClient) {
       updateObj[`${datoClient}.estado`] = estadoClient;
-      updateObj[`${datoClient}.fecha`] = new Date();
+      updateObj[`${datoClient}.fecha${estadoClient}`] = new Date();
       const complete = await Client.findByIdAndUpdate(id, updateObj);
       res.status(200).json({ message: "complete" });
     } else if (obs) {

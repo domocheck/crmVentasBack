@@ -46,7 +46,10 @@ const clientSchema = new mongoose.Schema({
   fechaIntegrado: Date,
 
   menu: {
-    fecha: {
+    fechaSolicitado: {
+      type: Date,
+    },
+    fechaEntregado: {
       type: Date,
     },
     estado: {
@@ -55,7 +58,10 @@ const clientSchema = new mongoose.Schema({
     },
   },
   datos: {
-    fecha: {
+    fechaSolicitado: {
+      type: Date,
+    },
+    fechaEntregado: {
       type: Date,
     },
     estado: {
@@ -63,8 +69,23 @@ const clientSchema = new mongoose.Schema({
       default: "Pendiente",
     },
   },
-  img: {
-    fecha: {
+  imgProd: {
+    fechaSolicitado: {
+      type: Date,
+    },
+    fechaEntregado: {
+      type: Date,
+    },
+    estado: {
+      type: String,
+      default: "Pendiente",
+    },
+  },
+  imgStore: {
+    fechaSolicitado: {
+      type: Date,
+    },
+    fechaEntregado: {
       type: Date,
     },
     estado: {
@@ -73,7 +94,10 @@ const clientSchema = new mongoose.Schema({
     },
   },
   mapa: {
-    fecha: {
+    fechaSolicitado: {
+      type: Date,
+    },
+    fechaEntregado: {
       type: Date,
     },
     estado: {
