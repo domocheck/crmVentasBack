@@ -95,12 +95,17 @@ export const updateClient = async (req, res) => {
 
 export const updateActividad = async (req, res) => {
   try {
-    const { id, actividadId, estado } = req.body;
+    const { id, actividadId, estado, obsAnterior } = req.body;
 
     // Buscar el cliente por su id y actualizar la actividad
     const cliente = await Client.findOneAndUpdate(
       { _id: id, "actividades._id": actividadId },
-      { $set: { "actividades.$.estadoAct": estado } }
+      {
+        $set: {
+          "actividades.$.estadoAct": estado,
+          "actividades.$.obsAnterior": obsAnterior,
+        },
+      }
     );
 
     if (!cliente) {
