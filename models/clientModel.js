@@ -8,7 +8,7 @@ const clientSchema = new mongoose.Schema({
       {
         _id: uuidv4(),
         actividad: "Pendiente de contactar",
-        hitos: "",
+        hito: "Cliente creado",
         fechaCumplimiento: new Date(),
         fecha: new Date(),
         proximoContacto: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
