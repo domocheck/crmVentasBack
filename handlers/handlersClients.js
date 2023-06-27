@@ -125,9 +125,11 @@ export const createAct = async (req, res) => {
   try {
     const { id, newActOk, newActPen } = req.body;
 
-    const update = await Client.findByIdAndUpdate(id, {
-      $push: { actividades: newActOk },
-    });
+    if (newActOk) {
+      await Client.findByIdAndUpdate(id, {
+        $push: { actividades: newActOk },
+      });
+    }
     if (newActPen) {
       await Client.findByIdAndUpdate(id, {
         $push: { actividades: newActPen },
