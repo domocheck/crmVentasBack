@@ -123,11 +123,16 @@ export const updateActividad = async (req, res) => {
 
 export const createAct = async (req, res) => {
   try {
-    const { id, newAct } = req.body;
+    const { id, newActOk, newActPen } = req.body;
 
     const update = await Client.findByIdAndUpdate(id, {
-      $push: { actividades: newAct },
+      $push: { actividades: newActOk },
     });
+    if (newActPen) {
+      await Client.findByIdAndUpdate(id, {
+        $push: { actividades: newActPen },
+      });
+    }
     res.status(200).json({ message: "complete" });
   } catch (error) {
     res.status(500).json({ message: "Error al crear la actividad", error });
