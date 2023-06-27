@@ -59,7 +59,7 @@ const clientSchema = new mongoose.Schema({
     },
     estado: {
       type: String,
-      default: "Pendiente",
+      default: "Pendiente de solicitar",
     },
   },
   datos: {
@@ -74,7 +74,7 @@ const clientSchema = new mongoose.Schema({
     },
     estado: {
       type: String,
-      default: "Pendiente",
+      default: "Pendiente de solicitar",
     },
   },
   imgProd: {
@@ -89,7 +89,7 @@ const clientSchema = new mongoose.Schema({
     },
     estado: {
       type: String,
-      default: "Pendiente",
+      default: "Pendiente de solicitar",
     },
   },
   imgStore: {
@@ -104,7 +104,7 @@ const clientSchema = new mongoose.Schema({
     },
     estado: {
       type: String,
-      default: "Pendiente",
+      default: "Pendiente de solicitar",
     },
   },
   mapa: {
@@ -119,7 +119,7 @@ const clientSchema = new mongoose.Schema({
     },
     estado: {
       type: String,
-      default: "Pendiente",
+      default: "Pendiente de solicitar",
     },
   },
   testeo: {
