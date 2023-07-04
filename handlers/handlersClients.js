@@ -94,7 +94,7 @@ export const updateClient = async (req, res) => {
 };
 
 export const updateContacto = async (req, res) => {
-  const [idClient, nombreNewContacto, telNewContacto] = req.body;
+  const { idClient, nombreNewContacto, telNewContacto } = req.body;
   try {
     const client = await Client.findByIdAndUpdate(idClient, {
       $push: { contactos: { nombre: nombreNewContacto, tel: telNewContacto } },
