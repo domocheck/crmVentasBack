@@ -97,12 +97,7 @@ export const updateContacto = async (req, res) => {
   const [idClient, nombreNewContacto, telNewContacto] = req.body;
   try {
     const client = await Client.findByIdAndUpdate(idClient, {
-      contatos: [
-        {
-          nombre: nombreNewContacto,
-          tel: telNewContacto,
-        },
-      ],
+      $push: { contactos: { nombre: nombreNewContacto, tel: telNewContacto } },
     });
     res.status(200).json({ message: "complete" });
   } catch (error) {

@@ -17,6 +17,10 @@ const clientSchema = new mongoose.Schema({
       },
     ],
   },
+  contactos: {
+    type: Array,
+    default: [],
+  },
   estado: {
     type: String,
     default: "Pendiente",
