@@ -4,8 +4,6 @@ import {
   getClient,
   getClients,
   updateClient,
-  updateActividad,
-  createAct,
   updateContacto,
 } from "../handlers/handlersClients.js";
 
