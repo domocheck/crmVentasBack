@@ -1,3 +1,5 @@
+import Client from "../models/clientModel.js";
+
 export const updateActividad = async (req, res) => {
   try {
     const { id, actividadId, estado, resultado, fechaCumplimiento } = req.body;
