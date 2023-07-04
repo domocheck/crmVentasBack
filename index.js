@@ -20,7 +20,7 @@ connectDB();
 
 //creamos los endpoints
 app.use("/api/clientes", clientesRoutes);
-app.use("/api/clientes/actividades", actividadesRoutes);
+app.use("/api/actividades", actividadesRoutes);
 app.use("*", (req, res) => {
   res.send("Para trabajar con la api, debes usar el endpoint /api/clientes");
 });
