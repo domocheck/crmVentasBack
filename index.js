@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import connectDB from "./mongoDB/connectDB.js";
 import { clientesRoutes } from "./Routes/clientesRoutes.js";
 import cors from "cors";
+import { actividadesRoutes } from "./Routes/actividadesRoutes.js";
 
 // iniciamos el servidor
 const app = express();
@@ -19,6 +20,7 @@ connectDB();
 
 //creamos los endpoints
 app.use("/api/clientes", clientesRoutes);
+app.use("/api/clientes/actividades", actividadesRoutes);
 app.use("*", (req, res) => {
   res.send("Para trabajar con la api, debes usar el endpoint /api/clientes");
 });
