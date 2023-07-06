@@ -13,11 +13,11 @@ const router = Router();
 
 router
   .post("/", createClient)
+  .put("/usersAPI/", updateUsersApi)
+  .put("/usersDatos/", updateUsersDatos)
   .put("/:id", updateContacto)
   .get("/", getClients)
   .get("/:id", getClient)
-  .put("/", updateClient)
-  .put("/usersAPI/", updateUsersApi)
-  .put("/usersDatos/", updateUsersDatos);
+  .put("/", updateClient);
 
 export { router as clientesRoutes };
