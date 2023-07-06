@@ -104,3 +104,58 @@ export const updateContacto = async (req, res) => {
     res.status(404).json({ error: error });
   }
 };
+
+export const updateUsersApi = async (req, res) => {
+  const { usuarioApi, claveApi, linkTienda, idClient } = req.body;
+
+  try {
+    const cliente = await Client.findByIdAndUpdate(
+      idClient,
+      {
+        $set: {
+          "usuarios.usuarioApi": usuarioApi,
+          "usuarios.claveApi": claveApi,
+          "usuarios.linkTienda": linkTienda,
+        },
+      },
+      { new: true }
+    );
+
+    res.status(200).json({ message: "Usuario actualizado con éxito", cliente });
+  } catch (error) {
+    res.status(500).json({ message: "Error al actualizar el usuario", error });
+  }
+};
+
+export const updateUsersDatos = async (req, res) => {
+  const {
+    usuarioAdmin,
+    claveAdmin,
+    usuarioLocal,
+    claveLocal,
+    usuarioOperador,
+    claveOperador,
+    idClient,
+  } = req.body;
+  try {
+    const cliente = await Client.findByIdAndUpdate(
+      idClient,
+      {
+        $set: {
+          "usuarios.usuarioAdmin": usuarioAdmin || usuarios.usuarioAdmin,
+          "usuarios.claveAdmin": claveAdmin || usuarios.claveAdmin,
+          "usuarios.usuarioLocal": usuarioLocal || usuarios.usuarioLocal,
+          "usuarios.claveLocal": claveLocal || usuarios.claveLocal,
+          "usuarios.usuarioOperador":
+            usuarioOperador || usuarios.usuarioOperador,
+          "usuarios.claveOperador": claveOperador || usuarios.claveOperador,
+        },
+      },
+      { new: true }
+    );
+
+    res.status(200).json({ message: "Usuario actualizado con éxito", cliente });
+  } catch (error) {
+    res.status(500).json({ message: "Error al actualizar el usuario", error });
+  }
+};

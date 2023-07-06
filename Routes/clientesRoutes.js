@@ -5,6 +5,8 @@ import {
   getClients,
   updateClient,
   updateContacto,
+  updateUsersApi,
+  updateUsersDatos,
 } from "../handlers/handlersClients.js";
 
 const router = Router();
@@ -14,6 +16,8 @@ router
   .put("/:id", updateContacto)
   .get("/", getClients)
   .get("/:id", getClient)
-  .put("/", updateClient);
+  .put("/", updateClient)
+  .put("/usersAPI/", updateUsersApi)
+  .put("/usersDatos/", updateUsersDatos);
 
 export { router as clientesRoutes };

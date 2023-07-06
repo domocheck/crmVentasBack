@@ -173,20 +173,18 @@ const clientSchema = new mongoose.Schema({
     },
   },
   usuarios: {
-    type: Array,
-    default: [
-      {
-        usuarioApi: String,
-        claveApi: String,
-        linkTienda: String,
-        usuarioAdmin: String,
-        claveAdmin: String,
-        usuarioLocal: String,
-        claveLocal: String,
-        usuarioOperador: String,
-        claveOperador: String,
-      },
-    ],
+    type: Object,
+    default: {
+      usuarioApi: String,
+      claveApi: String,
+      linkTienda: String,
+      usuarioAdmin: String,
+      claveAdmin: String,
+      usuarioLocal: String,
+      claveLocal: String,
+      usuarioOperador: String,
+      claveOperador: String,
+    },
   },
   permisos: {
     type: Array,
