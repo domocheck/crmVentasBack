@@ -13,8 +13,8 @@ const router = Router();
 
 router
   .post("/", createClient)
-  .put("/usersAPI/", updateUsersApi)
-  .put("/usersDatos/", updateUsersDatos)
+  .put("/usersAPI", updateUsersApi)
+  .put("/usersDatos", updateUsersDatos)
   .put("/:id", updateContacto)
   .get("/", getClients)
   .get("/:id", getClient)

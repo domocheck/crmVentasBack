@@ -142,13 +142,12 @@ export const updateUsersDatos = async (req, res) => {
       idClient,
       {
         $set: {
-          "usuarios.usuarioAdmin": usuarioAdmin || usuarios.usuarioAdmin,
-          "usuarios.claveAdmin": claveAdmin || usuarios.claveAdmin,
-          "usuarios.usuarioLocal": usuarioLocal || usuarios.usuarioLocal,
-          "usuarios.claveLocal": claveLocal || usuarios.claveLocal,
-          "usuarios.usuarioOperador":
-            usuarioOperador || usuarios.usuarioOperador,
-          "usuarios.claveOperador": claveOperador || usuarios.claveOperador,
+          "usuarios.usuarioAdmin": usuarioAdmin,
+          "usuarios.claveAdmin": claveAdmin,
+          "usuarios.usuarioLocal": usuarioLocal,
+          "usuarios.claveLocal": claveLocal,
+          "usuarios.usuarioOperador": usuarioOperador,
+          "usuarios.claveOperador": claveOperador,
         },
       },
       { new: true }
