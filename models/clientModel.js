@@ -127,6 +127,51 @@ const clientSchema = new mongoose.Schema({
       default: "Pendiente de solicitar",
     },
   },
+  "JPG a soporte": {
+    estado: {
+      type: String,
+      default: "Pendiente",
+    },
+    comentario: {
+      type: String,
+    },
+  },
+  JPG: {
+    estado: {
+      type: String,
+      default: "Pendiente",
+    },
+    comentario: {
+      type: String,
+    },
+  },
+  "JPG a soporte": {
+    estado: {
+      type: String,
+      default: "Pendiente",
+    },
+    comentario: {
+      type: String,
+    },
+  },
+  "MP Conectado": {
+    estado: {
+      type: String,
+      default: "Pendiente",
+    },
+    comentario: {
+      type: String,
+    },
+  },
+  Marketing: {
+    estado: {
+      type: String,
+      default: "Pendiente",
+    },
+    comentario: {
+      type: String,
+    },
+  },
   usuarios: {
     type: Array,
     default: [
