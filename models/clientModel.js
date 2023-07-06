@@ -50,7 +50,8 @@ const clientSchema = new mongoose.Schema({
   fechaContacto: Date,
   fechaDespachado: Date,
   fechaIntegrado: Date,
-
+  fechaTesteo: Date,
+  fechaConfiguracion: Date,
   menu: {
     fechaSolicitado: {
       type: Date,
@@ -126,17 +127,25 @@ const clientSchema = new mongoose.Schema({
       default: "Pendiente de solicitar",
     },
   },
-  testeo: {
-    type: String,
-    default: "No",
+  usuarios: {
+    type: Array,
+    default: [
+      {
+        usuarioApi: String,
+        claveApi: String,
+        linkTienda: String,
+        usuarioAdmin: String,
+        claveAdmin: String,
+        usuarioLocal: String,
+        claveLocal: String,
+        usuarioOperador: String,
+        claveOperador: String,
+      },
+    ],
   },
-  link: {
-    type: String,
-    default: "No",
-  },
-  portal: {
-    type: String,
-    default: "No",
+  permisos: {
+    type: Array,
+    default: ["Admin", "Integrador"],
   },
   observaciones: Array,
 });
