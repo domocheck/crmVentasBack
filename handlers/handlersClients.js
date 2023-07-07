@@ -67,7 +67,11 @@ export const updateClient = async (req, res) => {
     } else {
       const client = await Client.findById(id);
       if (client.fechaContacto) {
-        if (estado === "Despachado" || estado === "Integrado") {
+        if (
+          estado !== "Pendiente" ||
+          estado !== "No lo quiere" ||
+          estado !== "No contesta"
+        ) {
           const update = await Client.findByIdAndUpdate(id, {
             estado,
             ["fecha" + estado]: new Date(),
@@ -173,11 +177,9 @@ export const updateDatosDespachados = async (req, res) => {
       .status(200)
       .json({ message: "Datos despachados actualizados correctamente" });
   } catch (error) {
-    return res
-      .status(500)
-      .json({
-        message: "Error al actualizar los datos despachados del cliente",
-        error,
-      });
+    return res.status(500).json({
+      message: "Error al actualizar los datos despachados del cliente",
+      error,
+    });
   }
 };
