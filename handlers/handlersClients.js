@@ -158,3 +158,26 @@ export const updateUsersDatos = async (req, res) => {
     res.status(500).json({ message: "Error al actualizar el usuario", error });
   }
 };
+
+export const updateDatosDespachados = async (req, res) => {
+  const { idClient, tipoDato, estadoDato, comentarioDato } = req.body;
+  try {
+    const updateQuery = {
+      $set: {
+        [`${tipoDato}.estado`]: estadoDato,
+        [`${tipoDato}.comentario`]: comentarioDato,
+      },
+    };
+    const cliente = await Client.findByIdAndUpdate(idClient, updateQuery);
+    res
+      .status(200)
+      .json({ message: "Datos despachados actualizados correctamente" });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({
+        message: "Error al actualizar los datos despachados del cliente",
+        error,
+      });
+  }
+};
