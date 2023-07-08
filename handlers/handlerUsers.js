@@ -5,6 +5,12 @@ export const createUser = async (req, res) => {
   try {
     const { name, password, role, email } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10); // Encripta la contraseña
+    const emailExistente = await User.findOne({ email });
+
+    if (emailExistente) {
+      res.status(404).json({ error: "El usuario ya existe" });
+      return;
+    }
 
     const user = await User.create({
       name,
