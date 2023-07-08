@@ -4,6 +4,7 @@ import connectDB from "./mongoDB/connectDB.js";
 import { clientesRoutes } from "./Routes/clientesRoutes.js";
 import cors from "cors";
 import { actividadesRoutes } from "./Routes/actividadesRoutes.js";
+import { usersRoutes } from "./Routes/usersRoutes.js";
 
 // iniciamos el servidor
 const app = express();
@@ -21,6 +22,7 @@ connectDB();
 //creamos los endpoints
 app.use("/api/clientes", clientesRoutes);
 app.use("/api/actividades", actividadesRoutes);
+aap.use("api/users", usersRoutes);
 app.use("*", (req, res) => {
   res.send("Para trabajar con la api, debes usar el endpoint /api/clientes");
 });
