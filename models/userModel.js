@@ -18,6 +18,9 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  vendedor: {
+    type: String
+  }
 });
 
 const User = mongoose.model("checkDeliveryUser", userSchema);
