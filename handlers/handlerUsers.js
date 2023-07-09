@@ -3,7 +3,7 @@ import User from "../models/userModel.js";
 
 export const createUser = async (req, res) => {
   try {
-    const { name, password, role, email } = req.body;
+    const { name, password, role, email, vendedor } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10); // Encripta la contraseña
     const emailExistente = await User.findOne({ email });
 
@@ -17,6 +17,7 @@ export const createUser = async (req, res) => {
       password: hashedPassword, // Almacena el hash en la base de datos
       role,
       email,
+      vendedor: vendedor || false,
     });
 
     res.status(200).json({ message: "usuario creado con exito", data: user });
