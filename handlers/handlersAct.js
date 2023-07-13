@@ -2,7 +2,8 @@ import Client from "../models/clientModel.js";
 
 export const updateActividad = async (req, res) => {
   try {
-    const { id, actividadId, estado, resultado, fechaCumplimiento } = req.body;
+    const { id, actividadId, estado, resultado, fechaCumplimiento, userName } =
+      req.body;
 
     // Buscar el cliente por su id y actualizar la actividad
     const cliente = await Client.findOneAndUpdate(
@@ -12,6 +13,7 @@ export const updateActividad = async (req, res) => {
           "actividades.$.estadoAct": estado,
           "actividades.$.resultado": resultado,
           "actividades.$.fechaCumplimiento": fechaCumplimiento || new Date(),
+          "actividades.$.cumplidor": userName || "",
         },
       }
     );
