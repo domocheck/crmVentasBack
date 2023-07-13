@@ -14,6 +14,7 @@ const clientSchema = new mongoose.Schema({
         proximoContacto: new Date(),
         dato: "Contactar",
         estadoAct: "Pendiente",
+        cumplidor: "",
       },
     ],
   },
