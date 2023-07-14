@@ -21,7 +21,12 @@ export const updateActividad = async (req, res) => {
     if (!cliente) {
       return res.status(404).json({ message: "Cliente no encontrado" });
     }
-
+    await Client.findByIdAndUpdate(id, {
+      $set: {
+        "modificacion.user": userName,
+        "modificacion.fechaModificacion": new Date(),
+      },
+    });
     res.status(200).json({ message: "Actividad actualizada con éxito" });
   } catch (error) {
     res
@@ -32,7 +37,7 @@ export const updateActividad = async (req, res) => {
 
 export const createAct = async (req, res) => {
   try {
-    const { id, newActOk, newActPen } = req.body;
+    const { id, newActOk, newActPen, userName } = req.body;
 
     if (newActOk) {
       await Client.findByIdAndUpdate(id, {
@@ -44,6 +49,12 @@ export const createAct = async (req, res) => {
         $push: { actividades: newActPen },
       });
     }
+    await Client.findByIdAndUpdate(id, {
+      $set: {
+        "modificacion.user": userName,
+        "modificacion.fechaModificacion": new Date(),
+      },
+    });
     res.status(200).json({ message: "complete" });
   } catch (error) {
     res.status(500).json({ message: "Error al crear la actividad", error });

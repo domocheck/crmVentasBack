@@ -47,7 +47,7 @@ const clientSchema = new mongoose.Schema({
     type: Date,
     default: new Date(),
   },
-  fechaModificacion: Date,
+  modificacion: Object,
   fechaContacto: Date,
   fechaDespachado: Date,
   fechaIntegrado: Date,

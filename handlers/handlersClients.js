@@ -10,6 +10,7 @@ export const createClient = async (req, res) => {
       vendedor,
       observaciones,
       antiguedad,
+      userName,
     } = req.body;
 
     const cliente = await Client.create({
@@ -20,6 +21,7 @@ export const createClient = async (req, res) => {
       vendedor,
       observaciones,
       antiguedad,
+      modificacion: { user: userName, fechaModificacion: new Date() },
     });
     res
       .status(200)
@@ -51,7 +53,7 @@ export const getClient = async (req, res) => {
 };
 
 export const updateClient = async (req, res) => {
-  const { id, datoClient, estado, estadoClient, obs } = req.body;
+  const { id, datoClient, estado, estadoClient, obs, userName } = req.body;
   let updateObj = {};
   try {
     if (datoClient) {
@@ -75,12 +77,10 @@ export const updateClient = async (req, res) => {
           const update = await Client.findByIdAndUpdate(id, {
             estado,
             ["fecha" + estado]: new Date(),
-            fechaModificacion: new Date(),
           });
         } else {
           const update = await Client.findByIdAndUpdate(id, {
             estado,
-            fechaModificacion: new Date(),
           });
         }
       } else {
@@ -92,6 +92,12 @@ export const updateClient = async (req, res) => {
       }
       res.status(200).json({ message: "todo actualizado con exito" });
     }
+    await Client.findByIdAndUpdate(id, {
+      $set: {
+        "modificacion.user": userName,
+        "modificacion.fechaModificacion": new Date(),
+      },
+    });
   } catch (error) {
     res.status(404).json({ error: error });
   }
@@ -110,7 +116,7 @@ export const updateContacto = async (req, res) => {
 };
 
 export const updateUsersApi = async (req, res) => {
-  const { usuarioApi, claveApi, linkTienda, idClient } = req.body;
+  const { usuarioApi, claveApi, linkTienda, idClient, userName } = req.body;
 
   try {
     const cliente = await Client.findByIdAndUpdate(
@@ -124,7 +130,12 @@ export const updateUsersApi = async (req, res) => {
       },
       { new: true }
     );
-
+    await Client.findByIdAndUpdate(id, {
+      $set: {
+        "modificacion.user": userName,
+        "modificacion.fechaModificacion": new Date(),
+      },
+    });
     res.status(200).json({ message: "Usuario actualizado con éxito", cliente });
   } catch (error) {
     res.status(500).json({ message: "Error al actualizar el usuario", error });
@@ -140,6 +151,7 @@ export const updateUsersDatos = async (req, res) => {
     usuarioOperador,
     claveOperador,
     idClient,
+    userName,
   } = req.body;
   try {
     const cliente = await Client.findByIdAndUpdate(
@@ -156,7 +168,12 @@ export const updateUsersDatos = async (req, res) => {
       },
       { new: true }
     );
-
+    await Client.findByIdAndUpdate(id, {
+      $set: {
+        "modificacion.user": userName,
+        "modificacion.fechaModificacion": new Date(),
+      },
+    });
     res.status(200).json({ message: "Usuario actualizado con éxito", cliente });
   } catch (error) {
     res.status(500).json({ message: "Error al actualizar el usuario", error });
@@ -164,7 +181,7 @@ export const updateUsersDatos = async (req, res) => {
 };
 
 export const updateDatosDespachados = async (req, res) => {
-  const { idClient, tipoDato, estadoDato, comentarioDato } = req.body;
+  const { idClient, tipoDato, estadoDato, comentarioDato, userName } = req.body;
   try {
     const updateQuery = {
       $set: {
@@ -173,6 +190,12 @@ export const updateDatosDespachados = async (req, res) => {
       },
     };
     const cliente = await Client.findByIdAndUpdate(idClient, updateQuery);
+    await Client.findByIdAndUpdate(id, {
+      $set: {
+        "modificacion.user": userName,
+        "modificacion.fechaModificacion": new Date(),
+      },
+    });
     res
       .status(200)
       .json({ message: "Datos despachados actualizados correctamente" });
