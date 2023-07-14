@@ -58,3 +58,33 @@ export const getUsers = async (req, res) => {
     res.status(404).json({ error: error });
   }
 };
+
+export const edituser = async (req, res) => {
+  try {
+    const idUser = req.params.id;
+    const { name, mail, password, vendedor, role } = req.body;
+
+    const user = await User.findByIdAndUpdate(idUser, {
+      $set: {
+        mail: mail,
+        password: password,
+        vendedor: vendedor,
+        role: role,
+        name: name,
+      },
+    });
+    res.status(200).json({ message: "complete" });
+  } catch (error) {
+    res.status(404).json({ error: error });
+  }
+};
+
+export const deleteUser = async (req, res) => {
+  const idUser = req.params.id;
+  try {
+    const user = await User.findByIdAndDelete(idUser);
+    res.status(200).json({ message: "complete" });
+  } catch (err) {
+    res.status(404).json({ error: err });
+  }
+};
