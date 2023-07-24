@@ -15,6 +15,7 @@ const clientSchema = new mongoose.Schema({
         dato: "Contactar",
         estadoAct: "Pendiente",
         cumplidor: "",
+        role: "comercial",
       },
     ],
   },
