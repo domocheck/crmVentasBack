@@ -206,3 +206,15 @@ export const updateDatosDespachados = async (req, res) => {
     });
   }
 };
+
+export const updateNameClient = async (req, res) => {
+  const { idClient, nombreLocal } = req.body;
+  try {
+    const client = await Client.findByIdAndUpdate(idClient, {
+      nombreLocal,
+    });
+    res.status(200).json({ message: "modificado correctamente" });
+  } catch (error) {
+    res.status(404).json({ error: error });
+  }
+};

@@ -8,6 +8,7 @@ import {
   updateUsersApi,
   updateUsersDatos,
   updateDatosDespachados,
+  updateNameClient,
 } from "../handlers/handlersClients.js";
 
 const router = Router();
@@ -18,6 +19,7 @@ router
   .put("/usersDatos", updateUsersDatos)
   .put("/datos", updateDatosDespachados)
   .put("/:id", updateContacto)
+  .put("/changeName/:id", updateNameClient)
   .get("/", getClients)
   .get("/:id", getClient)
   .put("/", updateClient);
