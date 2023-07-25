@@ -166,7 +166,52 @@ const clientSchema = new mongoose.Schema({
       type: String,
     },
   },
-  Marketing: {
+  "Link IG": {
+    estado: {
+      type: String,
+      default: "Pendiente",
+    },
+    comentario: {
+      type: String,
+    },
+  },
+  "Link Whatsapp": {
+    estado: {
+      type: String,
+      default: "Pendiente",
+    },
+    comentario: {
+      type: String,
+    },
+  },
+  Historias: {
+    estado: {
+      type: String,
+      default: "Pendiente",
+    },
+    comentario: {
+      type: String,
+    },
+  },
+  Promos: {
+    estado: {
+      type: String,
+      default: "Pendiente",
+    },
+    comentario: {
+      type: String,
+    },
+  },
+  "Campañas email": {
+    estado: {
+      type: String,
+      default: "Pendiente",
+    },
+    comentario: {
+      type: String,
+    },
+  },
+  Playstore: {
     estado: {
       type: String,
       default: "Pendiente",
