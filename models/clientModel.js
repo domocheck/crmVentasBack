@@ -239,6 +239,7 @@ const clientSchema = new mongoose.Schema({
     default: ["Admin", "Integrador"],
   },
   observaciones: Array,
+  ventas: Number,
 });
 
 const Client = mongoose.model("checkDelivery", clientSchema);
