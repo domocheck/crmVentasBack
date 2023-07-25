@@ -218,3 +218,15 @@ export const updateNameClient = async (req, res) => {
     res.status(404).json({ error: error });
   }
 };
+
+export const updateVentas = async (req, res) => {
+  const { idClient, ventas } = req.body;
+  try {
+    const client = await Client.findByIdAndUpdate(idClient, {
+      ventas: ventas,
+    });
+    res.status(200).json({ message: "modificado correctamente" });
+  } catch (error) {
+    res.status(404).json({ error: error });
+  }
+};

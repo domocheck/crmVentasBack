@@ -9,6 +9,7 @@ import {
   updateUsersDatos,
   updateDatosDespachados,
   updateNameClient,
+  updateVentas,
 } from "../handlers/handlersClients.js";
 
 const router = Router();
@@ -20,6 +21,7 @@ router
   .put("/datos", updateDatosDespachados)
   .put("/:id", updateContacto)
   .put("/changeName/:id", updateNameClient)
+  .put("/ventas", updateVentas)
   .get("/", getClients)
   .get("/:id", getClient)
   .put("/", updateClient);
