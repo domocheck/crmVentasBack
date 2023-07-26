@@ -220,13 +220,29 @@ export const updateNameClient = async (req, res) => {
 };
 
 export const updateVentas = async (req, res) => {
-  const { idClient, ventas } = req.body;
+  const { idClient, ventas, userName } = req.body;
   try {
-    const client = await Client.findByIdAndUpdate(idClient, {
-      ventas: ventas,
+    const client = await Client.findById(idClient);
+    if (!client) {
+      return res.status(404).json({ error: "Cliente no encontrado" });
+    }
+
+    if (!client.ventas) {
+      client.ventas = ventas;
+    } else {
+      client.ventas = ventas;
+    }
+
+    await client.save();
+
+    await Client.findByIdAndUpdate(idClient, {
+      $set: {
+        "modificacion.user": userName,
+        "modificacion.fechaModificacion": new Date(),
+      },
     });
     res.status(200).json({ message: "modificado correctamente" });
   } catch (error) {
-    res.status(404).json({ error: error });
+    res.status(500).json({ error: error });
   }
 };
