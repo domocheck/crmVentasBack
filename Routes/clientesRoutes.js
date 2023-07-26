@@ -19,9 +19,9 @@ router
   .put("/usersAPI", updateUsersApi)
   .put("/usersDatos", updateUsersDatos)
   .put("/datos", updateDatosDespachados)
+  .put("/ventas", updateVentas)
   .put("/:id", updateContacto)
   .put("/changeName/:id", updateNameClient)
-  .put("/ventas", updateVentas)
   .get("/", getClients)
   .get("/:id", getClient)
   .put("/", updateClient);
