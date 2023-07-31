@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const notifiSchema = new mongoose.Schema({
   createAt: Date,
-  despcription: String,
+  description: String,
   users: [
     {
       idUser: String,
