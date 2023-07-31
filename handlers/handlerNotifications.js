@@ -1,5 +1,4 @@
-import bcrypt from "bcrypt";
-import Notifications from "./../models/notifiModel";
+import Notifications from "./../models/notifiModel.js";
 
 export const createNotifications = async (req, res) => {
   try {
