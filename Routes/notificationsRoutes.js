@@ -1,8 +1,11 @@
 import { Router } from "express";
-import { createNotifications } from "../handlers/handlerNotifications.js";
+import {
+  createNotifications,
+  getNotifications,
+} from "../handlers/handlerNotifications.js";
 
 const router = Router();
 
-router.post("/", createNotifications);
+router.post("/", createNotifications).get("/:idUser", getNotifications);
 
 export { router as notiRoutes };
