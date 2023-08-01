@@ -60,12 +60,12 @@ export const updateClient = async (req, res) => {
       updateObj[`${datoClient}.estado`] = estadoClient;
       updateObj[`${datoClient}.fecha${estadoClient}`] = new Date();
       const complete = await Client.findByIdAndUpdate(id, updateObj);
-      res.status(200).json({ message: "complete" });
+      res.status(200).json({ message: "complete", data: complete });
     } else if (obs) {
       const update = await Client.findByIdAndUpdate(id, {
         $push: { observaciones: obs },
       });
-      res.status(200).json({ message: "complete" });
+      res.status(200).json({ message: "complete", data: update });
     } else {
       const client = await Client.findById(id);
       if (client.fechaContacto) {
@@ -92,7 +92,7 @@ export const updateClient = async (req, res) => {
       }
       res
         .status(200)
-        .json({ message: "todo actualizado con exito", data: client });
+        .json({ message: "todo actualizado con exito", data: update });
     }
     await Client.findByIdAndUpdate(id, {
       $set: {
