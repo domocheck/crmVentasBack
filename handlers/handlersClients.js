@@ -78,10 +78,12 @@ export const updateClient = async (req, res) => {
             estado,
             ["fecha" + estado]: new Date(),
           });
+          res.status(200).json({ message: "complete", data: update });
         } else {
           const update = await Client.findByIdAndUpdate(id, {
             estado,
           });
+          res.status(200).json({ message: "complete", data: update });
         }
       } else {
         // La propiedad fechaContacto no existe en el cliente, agregar fechaContacto
@@ -89,10 +91,8 @@ export const updateClient = async (req, res) => {
           estado,
           fechaContacto: new Date(),
         });
+        res.status(200).json({ message: "complete", data: update });
       }
-      res
-        .status(200)
-        .json({ message: "todo actualizado con exito", data: update });
     }
     await Client.findByIdAndUpdate(id, {
       $set: {
