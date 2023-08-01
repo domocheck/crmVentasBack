@@ -90,7 +90,9 @@ export const updateClient = async (req, res) => {
           fechaContacto: new Date(),
         });
       }
-      res.status(200).json({ message: "todo actualizado con exito" });
+      res
+        .status(200)
+        .json({ message: "todo actualizado con exito", data: client });
     }
     await Client.findByIdAndUpdate(id, {
       $set: {
