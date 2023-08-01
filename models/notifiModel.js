@@ -9,6 +9,7 @@ const notifiSchema = new mongoose.Schema({
       statusNotification: String,
     },
   ],
+  tipo: String,
 });
 
 const Notifications = mongoose.model("notification", notifiSchema);
