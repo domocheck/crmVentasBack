@@ -2,12 +2,18 @@ import Notifications from "./../models/notifiModel.js";
 
 export const createNotifications = async (req, res) => {
   try {
-    const { date, description, idUser } = req.body;
+    const { date, description, idUsers } = req.body;
     const notification = await Notifications.create({
       createAt: date,
       description,
-      users: [{ idUser, statusNotification: "Pendiente" }],
+      users: idUsers.map((user) => {
+        return {
+          idUser: user,
+          statusNotification: "Pendiente",
+        };
+      }),
     });
+
     res
       .status(200)
       .json({ message: "notificacion creada", data: notification });
