@@ -21,10 +21,13 @@ export const getNotifications = async (req, res) => {
     const { idUser } = req.params;
     const notifications = await Notifications.find({
       users: {
-        $elemMatch: { idUser },
+        $elemMatch: { idUser, statusNotification: "Pendiente" },
       },
     });
 
+    if (notifications.length === 0) {
+      res.status(200).json({ message: "no hay notificaciones" });
+    }
     res
       .status(200)
       .json({ message: "notificaciones obtenidas", data: notifications });
