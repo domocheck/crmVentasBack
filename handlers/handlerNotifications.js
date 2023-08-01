@@ -2,7 +2,7 @@ import Notifications from "./../models/notifiModel.js";
 
 export const createNotifications = async (req, res) => {
   try {
-    const { date, description, idUsers } = req.body;
+    const { date, description, idUsers, tipo } = req.body;
     const notification = await Notifications.create({
       createAt: date,
       description,
@@ -12,6 +12,7 @@ export const createNotifications = async (req, res) => {
           statusNotification: "Pendiente",
         };
       }),
+      tipo,
     });
 
     res
