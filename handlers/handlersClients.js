@@ -3,28 +3,29 @@ import { createNotifications } from "./handlerNotifications.js";
 import { getUsers } from "./handlerUsers.js";
 
 const createNoti = async (userName, vendedor, tipo, cliente) => {
-  let destino = [];
-  let description;
-  if (tipo === "Despachado") {
-    destino = ["masDelivery"];
-    description = `${cliente} despachado`;
-  } else if (tipo === "Integrado") {
-    destino = [
-      "integrador",
-      "comercial",
-      "admin",
-      "masDelivery",
-      "marketing",
-      "vendedor",
-    ];
-    description = `${cliente} integrador`;
-  } else if (tipo === "Testeo") {
-    destino = ["integrador"];
-    description = `${cliente} listo para testeo`;
-  }
+  // let destino = [];
+  // let description;
+  // if (tipo === "Despachado") {
+  //   destino = ["masDelivery"];
+  //   description = `${cliente} despachado`;
+  // } else if (tipo === "Integrado") {
+  //   destino = [
+  //     "integrador",
+  //     "comercial",
+  //     "admin",
+  //     "masDelivery",
+  //     "marketing",
+  //     "vendedor",
+  //   ];
+  //   description = `${cliente} integrador`;
+  // } else if (tipo === "Testeo") {
+  //   destino = ["integrador"];
+  //   description = `${cliente} listo para testeo`;
+  // }
 
   const users = await getUsers();
-  const idUsers = filterById(users, userName, destino, vendedor);
+  console.log(users);
+  const idUsers = filterById(users, userName, ["admin"], false);
   const reqForNotifications = {
     body: {
       date: new Date(),
