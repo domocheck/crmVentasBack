@@ -23,7 +23,7 @@ const createNoti = async (res, cliente, tipo, vendedor, userName) => {
     description = `${cliente} listo para testeo`;
   }
 
-  const users = await getUsers();
+  const users = await getUsers(res);
   const idUsers = filterById(users.data, userName, destino, vendedor);
   const reqForNotifications = {
     body: {
@@ -34,7 +34,7 @@ const createNoti = async (res, cliente, tipo, vendedor, userName) => {
     },
   };
 
-  await createNotifications(reqForNotifications, res);
+  // await createNotifications(reqForNotifications, res);
 };
 
 export const createClient = async (req, res) => {
