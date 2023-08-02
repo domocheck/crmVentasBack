@@ -2,7 +2,7 @@ import Client from "../models/clientModel.js";
 import { createNotifications } from "./handlerNotifications.js";
 import { getUsers } from "./handlerUsers.js";
 
-const createNoti = async (userName, vendedor, tipo, cliente) => {
+const createNoti = async () => {
   // let destino = [];
   // let description;
   // if (tipo === "Despachado") {
@@ -23,15 +23,15 @@ const createNoti = async (userName, vendedor, tipo, cliente) => {
   //   description = `${cliente} listo para testeo`;
   // }
 
-  const users = await getUsers();
-  console.log(users);
-  const idUsers = filterById(users, userName, ["admin"], false);
+  // const users = await getUsers();
+  // console.log(users);
+  // const idUsers = filterById(users, userName, ["admin"], false);
   const reqForNotifications = {
     body: {
       date: new Date(),
       description: "lalala",
-      idUsers,
-      tipo,
+      idUsers: ["64a9cc9e47fcc243f99de326"],
+      tipo: "Despachado",
     },
   };
 
@@ -116,12 +116,7 @@ export const updateClient = async (req, res) => {
             estado,
             ["fecha" + estado]: new Date(),
           });
-          await createNoti(
-            userName,
-            estado === "Integrado" ? client.vendedor : false,
-            estado,
-            client.nombreLocal
-          );
+          createNoti();
           res.status(200).json({ message: "complete", data: update });
         } else {
           const update = await Client.findByIdAndUpdate(id, {
