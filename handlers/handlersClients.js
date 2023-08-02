@@ -29,7 +29,7 @@ const createNoti = async (userName, vendedor, tipo, cliente) => {
   const reqForNotifications = {
     body: {
       date: new Date(),
-      description,
+      description: "lalala",
       idUsers,
       tipo,
     },
