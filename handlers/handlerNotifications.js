@@ -80,3 +80,25 @@ export const deteleNotification = async (req, res) => {
     res.status(404).json({ error: error });
   }
 };
+
+export const filterById = (users, userName, destino, vendedor) => {
+  let idUsers = [];
+
+  for (let i = 0; i < users.length; i++) {
+    if (vendedor) {
+      if (
+        destino.includes(users[i].role) &&
+        users[i].name !== userName &&
+        users[i].vendedor === vendedor
+      ) {
+        idUsers.push(users[i]._id);
+      }
+    } else {
+      if (destino.includes(users[i].role) && users[i].name !== userName) {
+        idUsers.push(users[i]._id);
+      }
+    }
+  }
+
+  return idUsers;
+};

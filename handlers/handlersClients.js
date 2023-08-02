@@ -1,4 +1,46 @@
 import Client from "../models/clientModel.js";
+import { createNotifications } from "./handlerNotifications.js";
+import { getUsers } from "./handlerUsers.js";
+
+const createNoti = async (userName, vendedor, tipo, cliente) => {
+  let destino = [];
+  let description;
+  if (tipo === "Despachado") {
+    destino = ["masDelivery"];
+    description = `${cliente} despachado`;
+  } else if (tipo === "Integrado") {
+    destino = [
+      "integrador",
+      "comercial",
+      "admin",
+      "masDelivery",
+      "marketing",
+      "vendedor",
+    ];
+    description = `${cliente} integrador`;
+  } else if (tipo === "Testeo") {
+    destino = ["integrador"];
+    description = `${cliente} listo para testeo`;
+  }
+
+  const users = await getUsers();
+  const idUsers = filterById(
+    users,
+    userName,
+    destino,
+    vendedor ? vendedor : false
+  );
+  const reqForNotifications = {
+    body: {
+      date: new Date(),
+      description,
+      idUsers,
+      tipo,
+    },
+  };
+
+  await createNotifications(reqForNotifications, res);
+};
 
 export const createClient = async (req, res) => {
   try {
@@ -78,6 +120,12 @@ export const updateClient = async (req, res) => {
             estado,
             ["fecha" + estado]: new Date(),
           });
+          await createNoti(
+            userName,
+            Client.vendedor,
+            estado,
+            Client.nombreLocal
+          );
           res.status(200).json({ message: "complete", data: update });
         } else {
           const update = await Client.findByIdAndUpdate(id, {
