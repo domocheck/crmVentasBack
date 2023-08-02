@@ -2,36 +2,35 @@ import Client from "../models/clientModel.js";
 import { createNotifications } from "./handlerNotifications.js";
 import { getUsers } from "./handlerUsers.js";
 
-const createNoti = async (res) => {
-  // let destino = [];
-  // let description;
-  // if (tipo === "Despachado") {
-  //   destino = ["masDelivery"];
-  //   description = `${cliente} despachado`;
-  // } else if (tipo === "Integrado") {
-  //   destino = [
-  //     "integrador",
-  //     "comercial",
-  //     "admin",
-  //     "masDelivery",
-  //     "marketing",
-  //     "vendedor",
-  //   ];
-  //   description = `${cliente} integrador`;
-  // } else if (tipo === "Testeo") {
-  //   destino = ["integrador"];
-  //   description = `${cliente} listo para testeo`;
-  // }
+const createNoti = async (res, cliente, tipo, vendedor, userName) => {
+  let destino = [];
+  let description;
+  if (tipo === "Despachado") {
+    destino = ["masDelivery"];
+    description = `${cliente} despachado`;
+  } else if (tipo === "Integrado") {
+    destino = [
+      "integrador",
+      "comercial",
+      "admin",
+      "masDelivery",
+      "marketing",
+      "vendedor",
+    ];
+    description = `${cliente} integrador`;
+  } else if (tipo === "Testeo") {
+    destino = ["integrador"];
+    description = `${cliente} listo para testeo`;
+  }
 
-  // const users = await getUsers();
-  // console.log(users);
-  // const idUsers = filterById(users, userName, ["admin"], false);
+  const users = await getUsers();
+  const idUsers = filterById(users.data, userName, destino, vendedor);
   const reqForNotifications = {
     body: {
       date: new Date(),
-      description: "lalala",
-      idUsers: ["64a9cc9e47fcc243f99de326"],
-      tipo: "Despachado",
+      description,
+      idUsers,
+      tipo,
     },
   };
 
@@ -116,7 +115,13 @@ export const updateClient = async (req, res) => {
             estado,
             ["fecha" + estado]: new Date(),
           });
-          await createNoti(res);
+          await createNoti(
+            res,
+            client.nombreLocal,
+            estado,
+            estado === "Integrado" ? client.vendedor : false,
+            userName
+          );
           res.status(200).json({ message: "complete", data: update });
         } else {
           const update = await Client.findByIdAndUpdate(id, {
