@@ -24,12 +24,7 @@ const createNoti = async (userName, vendedor, tipo, cliente) => {
   }
 
   const users = await getUsers();
-  const idUsers = filterById(
-    users,
-    userName,
-    destino,
-    vendedor ? vendedor : false
-  );
+  const idUsers = filterById(users, userName, destino, vendedor);
   const reqForNotifications = {
     body: {
       date: new Date(),
@@ -122,9 +117,9 @@ export const updateClient = async (req, res) => {
           });
           await createNoti(
             userName,
-            Client.vendedor,
+            estado === "Integrado" ? client.vendedor : false,
             estado,
-            Client.nombreLocal
+            client.nombreLocal
           );
           res.status(200).json({ message: "complete", data: update });
         } else {
