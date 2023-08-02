@@ -2,7 +2,7 @@ import Client from "../models/clientModel.js";
 import { createNotifications } from "./handlerNotifications.js";
 import { getUsers } from "./handlerUsers.js";
 
-const createNoti = async () => {
+const createNoti = async (res) => {
   // let destino = [];
   // let description;
   // if (tipo === "Despachado") {
@@ -116,7 +116,7 @@ export const updateClient = async (req, res) => {
             estado,
             ["fecha" + estado]: new Date(),
           });
-          createNoti();
+          await createNoti(res);
           res.status(200).json({ message: "complete", data: update });
         } else {
           const update = await Client.findByIdAndUpdate(id, {
