@@ -1,41 +1,5 @@
 import Client from "../models/clientModel.js";
 import { createNotifications } from "./handlerNotifications.js";
-import { getUsers } from "./handlerUsers.js";
-
-const createNoti = async (res, cliente, tipo, vendedor, userName) => {
-  let destino = [];
-  let description;
-  if (tipo === "Despachado") {
-    destino = ["masDelivery"];
-    description = `${cliente} despachado`;
-  } else if (tipo === "Integrado") {
-    destino = [
-      "integrador",
-      "comercial",
-      "admin",
-      "masDelivery",
-      "marketing",
-      "vendedor",
-    ];
-    description = `${cliente} integrador`;
-  } else if (tipo === "Testeo") {
-    destino = ["integrador"];
-    description = `${cliente} listo para testeo`;
-  }
-
-  const users = await getUsersBack();
-  const idUsers = filterById(users.data, userName, destino, vendedor);
-  const reqForNotifications = {
-    body: {
-      date: new Date(),
-      description,
-      idUsers,
-      tipo,
-    },
-  };
-
-  await createNotifications(reqForNotifications, res);
-};
 
 export const createClient = async (req, res) => {
   try {
@@ -107,21 +71,14 @@ export const updateClient = async (req, res) => {
       const client = await Client.findById(id);
       if (client.fechaContacto) {
         if (
-          estado !== "Pendiente" ||
-          estado !== "No lo quiere" ||
+          estado !== "Pendiente" &&
+          estado !== "No lo quiere" &&
           estado !== "No contesta"
         ) {
           const update = await Client.findByIdAndUpdate(id, {
             estado,
             ["fecha" + estado]: new Date(),
           });
-          await createNoti(
-            res,
-            client.nombreLocal,
-            estado,
-            estado === "Integrado" ? client.vendedor : false,
-            userName
-          );
           res.status(200).json({ message: "complete", data: update });
         } else {
           const update = await Client.findByIdAndUpdate(id, {
@@ -155,7 +112,22 @@ export const updateContacto = async (req, res) => {
     const client = await Client.findByIdAndUpdate(idClient, {
       $push: { contactos: { nombre: nombreNewContacto, tel: telNewContacto } },
     });
-    res.status(200).json({ message: "complete" });
+
+    const description = `Nuevo contacto agregado a cliente con ID: ${idClient}`;
+    const idUsers = ["idUsuarioNotificacion"]; // Reemplaza 'idUsuarioNotificacion' con el ID del usuario al que quieres enviar la notificación.
+    const tipo = "Nuevo Contacto"; // Puedes ajustar el tipo de notificación según tus necesidades.
+
+    const reqForNotifications = {
+      body: {
+        date: new Date(),
+        description,
+        idUsers,
+        tipo,
+      },
+    };
+
+    const noti = await createNotifications(reqForNotifications, res);
+    res.status(200).json({ message: "complete contacto nuevo", data: noti });
   } catch (error) {
     res.status(404).json({ error: error });
   }
