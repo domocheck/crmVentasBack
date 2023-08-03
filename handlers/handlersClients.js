@@ -226,12 +226,11 @@ export const updateDatosDespachados = async (req, res) => {
 };
 
 export const updateClientData = async (req, res) => {
-  const { id } = req.params;
-  const { nombreLocal, instagram, seguidores, logistica } = req.body;
+  const { idClient, nombreLocal, instagram, seguidores, logistica } = req.body;
 
   try {
     // Buscar el cliente por id
-    const client = await Client.findById(id);
+    const client = await Client.findById(idClient);
 
     // Si existe el cliente, actualizar las propiedades dentro de redes
     if (client) {
