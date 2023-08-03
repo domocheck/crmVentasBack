@@ -225,15 +225,56 @@ export const updateDatosDespachados = async (req, res) => {
   }
 };
 
-export const updateNameClient = async (req, res) => {
-  const { idClient, nombreLocal } = req.body;
+export const updateClientData = async (req, res) => {
+  const { id } = req.params;
+  const { nombreLocal, instagram, seguidores, logistica } = req.body;
+
   try {
-    const client = await Client.findByIdAndUpdate(idClient, {
-      nombreLocal,
-    });
-    res.status(200).json({ message: "modificado correctamente" });
+    // Buscar el cliente por id
+    const client = await Client.findById(id);
+
+    // Si existe el cliente, actualizar las propiedades dentro de redes
+    if (client) {
+      if (instagram) {
+        // Si no existe redes, crear el objeto y establecer la propiedad instagram
+        if (!client.redes) {
+          client.redes = {};
+        }
+        client.redes.instagram = instagram;
+      }
+
+      if (seguidores) {
+        if (!client.redes) {
+          client.redes = {};
+        }
+        client.redes.seguidores = seguidores;
+      }
+
+      if (logistica) {
+        if (!client.redes) {
+          client.redes = {};
+        }
+        client.redes.logistica = logistica;
+      }
+
+      // Actualizar el nombreLocal si se proporciona
+      if (nombreLocal) {
+        client.nombreLocal = nombreLocal;
+      }
+
+      // Guardar los cambios en la base de datos
+      await client.save();
+    } else {
+      // Si el cliente no existe, puedes optar por crearlo aquí o devolver un error
+      return res.status(404).json({ error: "Cliente no encontrado" });
+      // o
+      // const newClient = new Client({ _id: idClient, redes: { instagram, seguidores, logistica } });
+      // await newClient.save();
+    }
+
+    res.status(200).json({ message: "Modificado correctamente" });
   } catch (error) {
-    res.status(404).json({ error: error });
+    res.status(500).json({ error: error.message });
   }
 };
 

@@ -240,6 +240,11 @@ const clientSchema = new mongoose.Schema({
   },
   observaciones: Array,
   ventas: Number,
+  redes: {
+    instagram: String,
+    seguidores: Number,
+    logistica: String,
+  },
 });
 
 const Client = mongoose.model("checkDelivery", clientSchema);
