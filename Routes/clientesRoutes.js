@@ -21,7 +21,7 @@ router
   .put("/datos", updateDatosDespachados)
   .put("/ventas", updateVentas)
   .put("/:id", updateContacto)
-  .put("/changeData/:id", updateClientData)
+  .put("/changeData/", updateClientData)
   .get("/", getClients)
   .get("/:id", getClient)
   .put("/", updateClient);
