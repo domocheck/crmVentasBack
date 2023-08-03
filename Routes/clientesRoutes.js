@@ -20,8 +20,8 @@ router
   .put("/usersDatos", updateUsersDatos)
   .put("/datos", updateDatosDespachados)
   .put("/ventas", updateVentas)
-  .put("/:id", updateContacto)
   .put("/changeData/", updateClientData)
+  .put("/:id", updateContacto)
   .get("/", getClients)
   .get("/:id", getClient)
   .put("/", updateClient);
