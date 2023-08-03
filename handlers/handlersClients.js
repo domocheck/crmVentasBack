@@ -231,28 +231,20 @@ export const updateClientData = async (req, res) => {
   try {
     // Buscar el cliente por id
     const client = await Client.findById(idClient);
-
+    if (!client.redes) {
+      client.redes = {};
+    }
     // Si existe el cliente, actualizar las propiedades dentro de redes
     if (client) {
       if (instagram) {
-        // Si no existe redes, crear el objeto y establecer la propiedad instagram
-        if (!client.redes) {
-          client.redes = {};
-        }
         client.redes.instagram = instagram;
       }
 
       if (seguidores) {
-        if (!client.redes) {
-          client.redes = {};
-        }
         client.redes.seguidores = seguidores;
       }
 
       if (logistica) {
-        if (!client.redes) {
-          client.redes = {};
-        }
         client.redes.logistica = logistica;
       }
 
