@@ -12,6 +12,9 @@ export const createClient = async (req, res) => {
       observaciones,
       antiguedad,
       userName,
+      instagram,
+      seguidores,
+      logistica,
     } = req.body;
 
     const cliente = await Client.create({
@@ -23,6 +26,7 @@ export const createClient = async (req, res) => {
       observaciones,
       antiguedad,
       modificacion: { user: userName, fechaModificacion: new Date() },
+      redes: { instagram, seguidores, logistica },
     });
     res
       .status(200)
