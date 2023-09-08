@@ -7,6 +7,8 @@ import { actividadesRoutes } from "./Routes/actividadesRoutes.js";
 import { userRoutes } from "./Routes/userRoutes.js";
 import { notiRoutes } from "./Routes/notificationsRoutes.js";
 import { reportsRoutes } from "./Routes/reportesRoutes.js";
+import cron from "node-cron";
+import { generateReportAct } from "./Services/sendReportAct.js";
 
 // iniciamos el servidor
 const app = express();
@@ -29,6 +31,10 @@ app.use("/api/notifications", notiRoutes);
 app.use("/api/reports", reportsRoutes);
 app.use("*", (req, res) => {
   res.send("Para trabajar con la api, debes usar el endpoint /api/clientes");
+});
+
+cron.schedule("0 19 * * 5", () => {
+  generateReportAct(); // Llama a tu función de envío de informe aquí
 });
 
 // levantamos el server

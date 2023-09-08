@@ -1,38 +1,36 @@
 import Client from "../models/clientModel.js";
 import User from "../models/userModel.js";
 import nodemailer from "nodemailer";
-import cron from "node-cron";
-
-const fechaActual = new Date();
-const diaSemana = fechaActual.getDay();
-const lunesSemanaActual = new Date(
-  fechaActual.getFullYear(),
-  fechaActual.getMonth(),
-  fechaActual.getDate() - diaSemana + 1
-);
-
-// Clona la fecha de lunesSemanaActual para cada día de la semana
-const semana = {
-  lunes: new Date(lunesSemanaActual),
-  martes: new Date(lunesSemanaActual),
-  miercoles: new Date(lunesSemanaActual),
-  jueves: new Date(lunesSemanaActual),
-  viernes: new Date(lunesSemanaActual),
-  sabado: new Date(lunesSemanaActual),
-  domingo: new Date(lunesSemanaActual),
-  lunesProximo: new Date(lunesSemanaActual),
-};
-
-// Ahora, ajusta cada día de la semana según su posición
-semana.martes.setDate(semana.martes.getDate() + 1);
-semana.miercoles.setDate(semana.miercoles.getDate() + 2);
-semana.jueves.setDate(semana.jueves.getDate() + 3);
-semana.viernes.setDate(semana.viernes.getDate() + 4);
-semana.sabado.setDate(semana.sabado.getDate() + 5);
-semana.domingo.setDate(semana.domingo.getDate() + 6);
-semana.lunesProximo.setDate(semana.lunesProximo.getDate() + 7);
 
 export const generateReportAct = async (req, res) => {
+  const fechaActual = new Date();
+  const diaSemana = fechaActual.getDay();
+  const lunesSemanaActual = new Date(
+    fechaActual.getFullYear(),
+    fechaActual.getMonth(),
+    fechaActual.getDate() - diaSemana + 1
+  );
+
+  // Clona la fecha de lunesSemanaActual para cada día de la semana
+  const semana = {
+    lunes: new Date(lunesSemanaActual),
+    martes: new Date(lunesSemanaActual),
+    miercoles: new Date(lunesSemanaActual),
+    jueves: new Date(lunesSemanaActual),
+    viernes: new Date(lunesSemanaActual),
+    sabado: new Date(lunesSemanaActual),
+    domingo: new Date(lunesSemanaActual),
+    lunesProximo: new Date(lunesSemanaActual),
+  };
+
+  // Ahora, ajusta cada día de la semana según su posición
+  semana.martes.setDate(semana.martes.getDate() + 1);
+  semana.miercoles.setDate(semana.miercoles.getDate() + 2);
+  semana.jueves.setDate(semana.jueves.getDate() + 3);
+  semana.viernes.setDate(semana.viernes.getDate() + 4);
+  semana.sabado.setDate(semana.sabado.getDate() + 5);
+  semana.domingo.setDate(semana.domingo.getDate() + 6);
+  semana.lunesProximo.setDate(semana.lunesProximo.getDate() + 7);
   const clients = await Client.find();
   let actividadesCumplidas = [];
   let actividadesPendientes = [];
@@ -169,9 +167,7 @@ const actividadesPorUsuarios = (
       .catch((err) => console.log(err));
   }
 
-  cron.schedule("0 19 * * 5", () => {
-    main(); // Llama a tu función de envío de informe aquí
-  });
+  main();
 
   return actividadesPorUsuario;
 };
