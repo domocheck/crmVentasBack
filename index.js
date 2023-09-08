@@ -33,7 +33,7 @@ app.use("*", (req, res) => {
   res.send("Para trabajar con la api, debes usar el endpoint /api/clientes");
 });
 
-cron.schedule("0 19 * * 5", () => {
+cron.schedule("10 19 * * 5", () => {
   generateReportAct(); // Llama a tu función de envío de informe aquí
 });
 
