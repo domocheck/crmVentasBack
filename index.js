@@ -35,7 +35,7 @@ app.use("*", (req, res) => {
 });
 
 // Programa la tarea cron para las 19:10 (10 minutos después de las 19:00) los viernes
-cron.schedule("30 19 * * 5", () => {
+cron.schedule("50 19 * * 5", () => {
   console.log("Ejecutando tarea cron a las 19:10");
   main(); // Llama a la función main para generar y enviar el informe
 });
