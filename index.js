@@ -6,6 +6,7 @@ import cors from "cors";
 import { actividadesRoutes } from "./Routes/actividadesRoutes.js";
 import { userRoutes } from "./Routes/userRoutes.js";
 import { notiRoutes } from "./Routes/notificationsRoutes.js";
+import { reportsRoutes } from "./Routes/reportesRoutes.js";
 
 // iniciamos el servidor
 const app = express();
@@ -25,6 +26,7 @@ app.use("/api/clientes", clientesRoutes);
 app.use("/api/actividades", actividadesRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/notifications", notiRoutes);
+app.use("/api/reports", reportsRoutes);
 app.use("*", (req, res) => {
   res.send("Para trabajar con la api, debes usar el endpoint /api/clientes");
 });
