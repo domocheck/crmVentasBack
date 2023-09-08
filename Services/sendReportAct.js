@@ -1,6 +1,7 @@
 import Client from "../models/clientModel.js";
 import User from "../models/userModel.js";
 import nodemailer from "nodemailer";
+import cron from "node-cron";
 
 const fechaActual = new Date();
 const diaSemana = fechaActual.getDay();
@@ -138,6 +139,38 @@ const actividadesPorUsuarios = (
         ),
       });
     }
+  });
+
+  const transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: "luquez1431@gmail.com",
+      pass: "dtqlzwfwevhnjvfb",
+    },
+  });
+
+  transporter.verify().then(() => {
+    console.log("exito");
+  });
+
+  async function main() {
+    // send mail with defined transport object
+    const info = await transporter
+      .sendMail({
+        from: "luquez1431@gmail.com", // sender address
+        to: "luquez1431@gmail.com", // list of receivers
+        subject: "Hello ✔", // Subject line
+        text: "Hello world?", // plain text body
+        html: "<b>Hello world?</b>", // html body
+      })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  }
+
+  cron.schedule("0 19 * * 5", () => {
+    main(); // Llama a tu función de envío de informe aquí
   });
 
   return actividadesPorUsuario;
