@@ -35,10 +35,10 @@ app.use("*", (req, res) => {
 });
 
 // Programa la tarea cron para las 19:10 (10 minutos después de las 19:00) los viernes
-cron.schedule("50 19 * * 5", () => {
-  console.log("Ejecutando tarea cron a las 19:10");
-  main(); // Llama a la función main para generar y enviar el informe
-});
+// cron.schedule("50 19 * * 5", () => {
+//   console.log("Ejecutando tarea cron a las 19:10");
+//   main(); // Llama a la función main para generar y enviar el informe
+// });
 
 // Levanta el servidor
 const PORT = process.env.PORT || 3030;
@@ -47,35 +47,35 @@ app.listen(PORT, () => {
 });
 
 // Función para enviar correos electrónicos
-async function main() {
-  try {
-    const reportData = await generateReportAct(); // Llama a generateReportAct y obtén los datos
+// async function main() {
+//   try {
+//     const reportData = await generateReportAct(); // Llama a generateReportAct y obtén los datos
 
-    const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 465,
-      secure: true,
-      auth: {
-        user: "luquez1431@gmail.com",
-        pass: "dtqlzwfwevhnjvfb",
-      },
-    });
+//     const transporter = nodemailer.createTransport({
+//       host: "smtp.gmail.com",
+//       port: 465,
+//       secure: true,
+//       auth: {
+//         user: "luquez1431@gmail.com",
+//         pass: "dtqlzwfwevhnjvfb",
+//       },
+//     });
 
-    transporter.verify().then(() => {
-      console.log("Configuración de correo electrónico exitosa");
-    });
+//     transporter.verify().then(() => {
+//       console.log("Configuración de correo electrónico exitosa");
+//     });
 
-    const info = await transporter.sendMail({
-      from: "luquez1431@gmail.com", // Reemplaza con tu dirección de correo
-      to: "luquez1431@gmail.com", // Reemplaza con el destinatario
-      subject: "Informe Semanal de Ventas", // Asunto del correo
-      text: "Adjunto se encuentra el informe semanal de ventas.", // Cuerpo del correo
-      html: `<p>Adjunto se encuentra el informe semanal de ventas:</p>
-             <pre>${JSON.stringify(reportData, null, 2)}</pre>`, // Agrega los datos del informe en el cuerpo del correo como texto o HTML
-    });
+//     const info = await transporter.sendMail({
+//       from: "luquez1431@gmail.com", // Reemplaza con tu dirección de correo
+//       to: "luquez1431@gmail.com", // Reemplaza con el destinatario
+//       subject: "Informe Semanal de Ventas", // Asunto del correo
+//       text: "Adjunto se encuentra el informe semanal de ventas.", // Cuerpo del correo
+//       html: `<p>Adjunto se encuentra el informe semanal de ventas:</p>
+//              <pre>${JSON.stringify(reportData, null, 2)}</pre>`, // Agrega los datos del informe en el cuerpo del correo como texto o HTML
+//     });
 
-    console.log("Correo electrónico enviado:", info.response);
-  } catch (error) {
-    console.error("Error al enviar el correo electrónico:", error);
-  }
-}
+//     console.log("Correo electrónico enviado:", info.response);
+//   } catch (error) {
+//     console.error("Error al enviar el correo electrónico:", error);
+//   }
+// }

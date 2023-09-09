@@ -1,7 +1,7 @@
 import Client from "../models/clientModel.js";
 import User from "../models/userModel.js";
 
-export const generateReportAct = async () => {
+export const generateReportAct = async (req, res) => {
   const fechaActual = new Date();
   const diaSemana = fechaActual.getDay();
   const lunesSemanaActual = new Date(
@@ -66,8 +66,10 @@ export const generateReportAct = async () => {
     semana
   );
 
-  // Retorna los datos generados
-  return actividadesPorUsuario;
+  res.status(200).json({
+    message: "todos los clientes obtenidos",
+    data: actividadesPorUsuario,
+  });
 };
 
 const actividadesPorUsuarios = (
