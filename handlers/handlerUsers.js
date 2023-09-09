@@ -62,12 +62,12 @@ export const getUsers = async (req, res) => {
 export const edituser = async (req, res) => {
   try {
     const idUser = req.params.id;
-    const { name, mail, password, vendedor, role } = req.body;
+    const { name, email, password, vendedor, role } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await User.findByIdAndUpdate(idUser, {
       $set: {
-        mail: mail,
+        email: email,
         password: hashedPassword,
         vendedor: vendedor,
         role: role,
