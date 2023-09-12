@@ -1,32 +1,59 @@
 import Client from "../models/clientModel.js";
+import Prospect from "../models/prospectModel.js";
 
 export const updateActividad = async (req, res) => {
   try {
-    const { id, actividadId, estado, resultado, fechaCumplimiento, userName } =
-      req.body;
+    const {
+      id,
+      actividadId,
+      estado,
+      resultado,
+      fechaCumplimiento,
+      userName,
+      prospect,
+    } = req.body;
+
+    let cliente;
+
+    if (prospect) {
+      cliente = await Prospect.findOneAndUpdate(
+        { _id: id, "actividades._id": actividadId },
+        {
+          $set: {
+            "actividades.$.estadoAct": estado,
+            "actividades.$.resultado": resultado,
+            "actividades.$.fechaCumplimiento": fechaCumplimiento || new Date(),
+            "actividades.$.cumplidor": userName || "",
+          },
+        }
+      );
+    } else {
+      cliente = await Client.findOneAndUpdate(
+        { _id: id, "actividades._id": actividadId },
+        {
+          $set: {
+            "actividades.$.estadoAct": estado,
+            "actividades.$.resultado": resultado,
+            "actividades.$.fechaCumplimiento": fechaCumplimiento || new Date(),
+            "actividades.$.cumplidor": userName || "",
+          },
+        }
+      );
+    }
 
     // Buscar el cliente por su id y actualizar la actividad
-    const cliente = await Client.findOneAndUpdate(
-      { _id: id, "actividades._id": actividadId },
-      {
-        $set: {
-          "actividades.$.estadoAct": estado,
-          "actividades.$.resultado": resultado,
-          "actividades.$.fechaCumplimiento": fechaCumplimiento || new Date(),
-          "actividades.$.cumplidor": userName || "",
-        },
-      }
-    );
 
     if (!cliente) {
       return res.status(404).json({ message: "Cliente no encontrado" });
     }
-    await Client.findByIdAndUpdate(id, {
-      $set: {
-        "modificacion.user": userName,
-        "modificacion.fechaModificacion": new Date(),
-      },
-    });
+    if (!prospect) {
+      await Client.findByIdAndUpdate(id, {
+        $set: {
+          "modificacion.user": userName,
+          "modificacion.fechaModificacion": new Date(),
+        },
+      });
+    }
     res.status(200).json({ message: "Actividad actualizada con éxito" });
   } catch (error) {
     res

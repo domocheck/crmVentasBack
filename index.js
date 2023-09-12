@@ -10,6 +10,7 @@ import { reportsRoutes } from "./Routes/reportesRoutes.js";
 import cron from "node-cron";
 import nodemailer from "nodemailer"; // Importa nodemailer
 import { generateReportAct } from "./Services/sendReportAct.js";
+import { prospectsRoutes } from "./Routes/prospectsRoutes.js";
 
 // Inicializa el servidor
 const app = express();
@@ -30,6 +31,7 @@ app.use("/api/actividades", actividadesRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/notifications", notiRoutes);
 app.use("/api/reports", reportsRoutes);
+app.use("/api/prospects", prospectsRoutes);
 app.use("*", (req, res) => {
   res.send("Para trabajar con la API, debes usar el endpoint /api/clientes");
 });
