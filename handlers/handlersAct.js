@@ -64,24 +64,37 @@ export const updateActividad = async (req, res) => {
 
 export const createAct = async (req, res) => {
   try {
-    const { id, newActOk, newActPen, userName } = req.body;
+    const { id, newActOk, newActPen, userName, prospect } = req.body;
 
-    if (newActOk) {
+    if (prospect) {
+      if (newActOk) {
+        await Prospect.findByIdAndUpdate(id, {
+          $push: { actividades: newActOk },
+        });
+      }
+      if (newActPen) {
+        await Prospect.findByIdAndUpdate(id, {
+          $push: { actividades: newActPen },
+        });
+      }
+    } else {
+      if (newActOk) {
+        await Client.findByIdAndUpdate(id, {
+          $push: { actividades: newActOk },
+        });
+      }
+      if (newActPen) {
+        await Client.findByIdAndUpdate(id, {
+          $push: { actividades: newActPen },
+        });
+      }
       await Client.findByIdAndUpdate(id, {
-        $push: { actividades: newActOk },
+        $set: {
+          "modificacion.user": userName,
+          "modificacion.fechaModificacion": new Date(),
+        },
       });
     }
-    if (newActPen) {
-      await Client.findByIdAndUpdate(id, {
-        $push: { actividades: newActPen },
-      });
-    }
-    await Client.findByIdAndUpdate(id, {
-      $set: {
-        "modificacion.user": userName,
-        "modificacion.fechaModificacion": new Date(),
-      },
-    });
     res.status(200).json({ message: "complete" });
   } catch (error) {
     res.status(500).json({ message: "Error al crear la actividad", error });

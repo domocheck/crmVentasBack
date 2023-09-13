@@ -12,7 +12,7 @@ const prospectSchema = new mongoose.Schema({
         fechaCumplimiento: new Date(),
         fecha: new Date(),
         proximoContacto: new Date(),
-        dato: "Contactar",
+        dato: "Contactar prospecto",
         estadoAct: "Pendiente",
         cumplidor: "",
         creador: "Micaela",
