@@ -11,6 +11,7 @@ export const updateActividad = async (req, res) => {
       fechaCumplimiento,
       userName,
       prospect,
+      actividad,
     } = req.body;
 
     let cliente;
@@ -24,6 +25,7 @@ export const updateActividad = async (req, res) => {
             "actividades.$.resultado": resultado,
             "actividades.$.fechaCumplimiento": fechaCumplimiento || new Date(),
             "actividades.$.cumplidor": userName || "",
+            "actividades.$.actividad": actividad || "",
           },
         }
       );
@@ -36,6 +38,7 @@ export const updateActividad = async (req, res) => {
             "actividades.$.resultado": resultado,
             "actividades.$.fechaCumplimiento": fechaCumplimiento || new Date(),
             "actividades.$.cumplidor": userName || "",
+            "actividades.$.actividad": actividad || "",
           },
         }
       );
