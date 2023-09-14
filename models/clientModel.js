@@ -245,6 +245,10 @@ const clientSchema = new mongoose.Schema({
     seguidores: Number,
     logistica: String,
   },
+  interes: {
+    type: String,
+    default: "",
+  },
 });
 
 const Client = mongoose.model("checkDelivery", clientSchema);

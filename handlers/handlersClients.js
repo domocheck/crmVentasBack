@@ -58,7 +58,8 @@ export const getClient = async (req, res) => {
 };
 
 export const updateClient = async (req, res) => {
-  const { id, datoClient, estado, estadoClient, obs, userName } = req.body;
+  const { id, datoClient, estado, estadoClient, obs, userName, interes } =
+    req.body;
   let updateObj = {};
   try {
     if (datoClient) {
@@ -105,6 +106,11 @@ export const updateClient = async (req, res) => {
         "modificacion.fechaModificacion": new Date(),
       },
     });
+    if (interes !== "") {
+      const cliente = await Client.findById(id);
+      cliente.interes = interes;
+      await cliente.save();
+    }
   } catch (error) {
     res.status(404).json({ error: error });
   }
