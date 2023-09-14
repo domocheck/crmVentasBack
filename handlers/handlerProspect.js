@@ -31,10 +31,11 @@ export const getProspects = async (req, res) => {
 
 export const updateProspect = async (req, res) => {
   try {
-    const { id, estado } = req.body;
-    const prospect = await Prospect.findByIdAndUpdate(id, {
-      $set: { estado: estado },
-    });
+    const { id, estado, interes } = req.body;
+    const prospect = await Prospect.findById(id);
+    prospect.estado = estado;
+    prospect.interes = interes;
+    await prospect.save();
     res.status(200).json({ message: "prospecto actualizado", data: prospect });
   } catch (error) {
     res.status(404).json({ error: error });

@@ -36,6 +36,10 @@ const prospectSchema = new mongoose.Schema({
     required: true,
   },
   fechaContacto: Date,
+  interes: {
+    type: String,
+    default: "",
+  },
 });
 
 const Prospect = mongoose.model("checkProspect", prospectSchema);
