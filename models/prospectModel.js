@@ -15,7 +15,7 @@ const prospectSchema = new mongoose.Schema({
         dato: "Contactar prospecto",
         estadoAct: "Pendiente",
         cumplidor: "",
-        creador: "Micaela",
+        creador: "Leticia",
       },
     ],
   },
