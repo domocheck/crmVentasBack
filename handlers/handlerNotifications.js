@@ -33,8 +33,9 @@ export const getNotifications = async (req, res) => {
     });
 
     if (notifications.length === 0) {
-      res.status(200).json({ message: "no hay notificaciones" });
+      return res.status(200).json({ message: "no hay notificaciones" });
     }
+
     res
       .status(200)
       .json({ message: "notificaciones obtenidas", data: notifications });
